@@ -1,0 +1,27 @@
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-master-mw9xz-1[0m stage [32mmeta-pipeline[0m and container [32mstep-credential-initializer-wmbzg[0m
+{"level":"warn","ts":1582628606.296052,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/0.8.0-**-support-backwards-incompats\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1582628606.2967162,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-master-mw9xz-1[0m stage [32mmeta-pipeline[0m and container [32mstep-working-dir-initializer-5l66n[0m
+Unable to retrieve container logs for docker://e444bbbd6cdc35f738a1bba0fa0eb9d543f7b80871b88d824cbb3442c04ccfc2
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-master-mw9xz-1[0m stage [32mmeta-pipeline[0m and container [32mstep-place-tools[0m
+Unable to retrieve container logs for docker://d50ba5339e8fbf5eb6443617fbde1cc785928914e4b675047a9ee06a561c7134
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-master-mw9xz-1[0m stage [32mmeta-pipeline[0m and container [32mstep-git-source-meta-salaboy-fmtok8s-c4p-master-mw9xz-x54cz[0m
+Unable to retrieve container logs for docker://9069a55da6f75db82c4c6bd1cb5367d517f7907748c040d259572b2c67220132
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-master-mw9xz-1[0m stage [32mmeta-pipeline[0m and container [32mstep-git-merge[0m
+Unable to retrieve container logs for docker://88c07193b1533733101c3c5d213f44a236c4accce8a8f1984a742f41bceecc69
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-master-mw9xz-1[0m stage [32mmeta-pipeline[0m and container [32mstep-merge-pull-refs[0m
+Unable to retrieve container logs for docker://796908ac61ad30f443803e4faf78a7d7398556bcb42ffac73c5f3a8d861efe52
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-master-mw9xz-1[0m stage [32mmeta-pipeline[0m and container [32mstep-create-effective-pipeline[0m
+Unable to retrieve container logs for docker://377fec32f9f06fc544c124a1576cc5e2862d752bc8b43600494bdf43026f4d28
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-master-mw9xz-1[0m stage [32mmeta-pipeline[0m and container [32mstep-create-tekton-crds[0m
+Unable to retrieve container logs for docker://2d9da2f00c48a189632a008545318d622a6870436796bec0130cc76342f2c65d
+[31m
+Pipeline failed on stage 'meta-pipeline' : container 'step-create-tekton-crds'. The execution of the pipeline has stopped.[0m
