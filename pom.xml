@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.salaboy.conferences</groupId>
     <artifactId>fmtok8s-c4p</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.6</version>
     <name>From Monolith to K8s :: C4P Service</name>
     <description>From Monolith to K8s :: C4P Service</description>
 
