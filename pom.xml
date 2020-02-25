@@ -19,6 +19,7 @@
 
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <spring.cloud.contract>2.2.1.RELEASE</spring.cloud.contract>
         <!-- <zeebe.version>0.7.0</zeebe.version> -->
     </properties>
 
@@ -42,7 +43,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-verifier</artifactId>
+            <version>${spring.cloud.contract}</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -71,6 +77,17 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>${spring.cloud.contract}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <packageWithBaseClasses>com.salaboy.conferences.c4p</packageWithBaseClasses>
+                    <testMode>EXPLICIT</testMode>
+                </configuration>
+
             </plugin>
         </plugins>
     </build>
