@@ -9,10 +9,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class C4PController {
@@ -37,7 +34,7 @@ public class C4PController {
 
 
     @PostMapping()
-    public void newProposal(@RequestBody Proposal proposal) {
+    public Proposal newProposal(@RequestBody Proposal proposal) {
         proposals.add(proposal);
         // client.newCreateInstanceCommand()
         //         .bpmnProcessId("C4P")
@@ -45,6 +42,7 @@ public class C4PController {
         //         .variables(Collections.singletonMap("proposal", proposal))
         //         .send();
         emitEvent("> New Proposal Received Event ( " + proposal + ")");
+        return proposal;
     }
 
     @GetMapping()

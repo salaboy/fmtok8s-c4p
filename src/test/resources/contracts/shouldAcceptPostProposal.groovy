@@ -6,10 +6,10 @@ import org.springframework.cloud.contract.spec.Contract
             method 'POST'
             url '/'
             body([
-                "title": "",
-                "description": "",
-                "author": "",
-                "email": ""
+                "title": "random title",
+                "description": "random abstract",
+                "author": "random author",
+                "email": "random@mail.com"
             ])
             headers {
                 contentType('application/json')
@@ -17,6 +17,16 @@ import org.springframework.cloud.contract.spec.Contract
         }
         response {
             status OK()
+            headers {
+                contentType('application/json')
+            }
+            body(
+                    "id": $(anyNonEmptyString()),
+                    "title": $(anyNonEmptyString()),
+                    "description": $(anyNonEmptyString()),
+                    "author": $(anyNonEmptyString()),
+                    "email": $(anyEmail())
+            )
         }
     },
     Contract.make {
