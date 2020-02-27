@@ -6,10 +6,10 @@ import org.springframework.cloud.contract.spec.Contract
             method 'POST'
             url '/'
             body([
-                "title": "random title",
-                "description": "random abstract",
-                "author": "random author",
-                "email": "random@mail.com"
+                "title": $(anyNonEmptyString()),
+                "description": $(anyNonEmptyString()),
+                "author": $(anyNonEmptyString()),
+                "email": $(anyEmail())
             ])
             headers {
                 contentType('application/json')
@@ -21,7 +21,7 @@ import org.springframework.cloud.contract.spec.Contract
                 contentType('application/json')
             }
             body(
-                    "id": $(anyNonEmptyString()),
+                    "id": $(uuid()),
                     "title": $(anyNonEmptyString()),
                     "description": $(anyNonEmptyString()),
                     "author": $(anyNonEmptyString()),
