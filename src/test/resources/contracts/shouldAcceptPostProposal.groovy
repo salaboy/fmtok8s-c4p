@@ -21,7 +21,7 @@ import org.springframework.cloud.contract.spec.Contract
                 contentType('application/json')
             }
             body(
-                    "id": $(uuid()),
+                    "id": $(anyUuid()),
                     "title": $(anyNonEmptyString()),
                     "description": $(anyNonEmptyString()),
                     "author": $(anyNonEmptyString()),
