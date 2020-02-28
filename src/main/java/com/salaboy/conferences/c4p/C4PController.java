@@ -14,8 +14,10 @@ import java.util.*;
 @RestController
 public class C4PController {
 
-    private static final String AGENDA_SERVICE = "http://fmtok8s-agenda";
-    private static final String EMAIL_SERVICE = "http://fmtok8s-email";
+    @Value("${AGENDA_SERVICE:http://fmtok8s-agenda}")
+    private String AGENDA_SERVICE = "http://fmtok8s-agenda";
+    @Value("${EMAIL_SERVICE:http://fmtok8s-email}")
+    private String EMAIL_SERVICE = "http://fmtok8s-email";
 
     @Value("${version:0.0.0}")
     private String version;
@@ -92,7 +94,7 @@ public class C4PController {
     private void notifySpeakerByEmail(@RequestBody ProposalDecision decision, Proposal proposal) {
         emitEvent("> Notify Speaker Event (via email: " + proposal.getEmail() + " -> " + ((decision.isApproved()) ? "Approved" : "Rejected") + ")");
         HttpEntity<Proposal> requestEmail = new HttpEntity<>(proposal);
-        restTemplate.postForEntity(EMAIL_SERVICE, requestEmail, String.class);
+        restTemplate.postForEntity(EMAIL_SERVICE+"/notification", requestEmail, String.class);
     }
 
     private void emitEvent(String content) {
