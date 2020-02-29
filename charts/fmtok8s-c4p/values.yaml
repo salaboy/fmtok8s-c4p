@@ -9,7 +9,7 @@ image:
 
 # define environment variables here as a map of key: value
 env:
-
+  JAVA_OPTS: -XX:+PrintFlagsFinal -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
 # enable this flag to use knative serve to deploy the app
 knativeDeploy: false
 
@@ -53,11 +53,11 @@ service:
     fabric8.io/ingress.annotations: "kubernetes.io/ingress.class: nginx"
 resources:
   limits:
-    cpu: 750m
-    memory: 768Mi
+    cpu: 1500m
+    memory: 1768Mi
   requests:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 750m
+    memory: 1024Mi
 probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 60
