@@ -1,0 +1,251 @@
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-credential-initializer-7sptt[0m
+{"level":"warn","ts":1583158282.7586482,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/0.8.0-**-support-backwards-incompats\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1583158282.7615345,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-working-dir-initializer-qgw4g[0m
+{"level":"warn","ts":1583158283.7021174,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1583158283.705088,"logger":"fallback-logger","caller":"bash/main.go:64","msg":"Successfully executed command \"sh -c mkdir -p /workspace/source\"; output "}
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-place-tools[0m
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-git-source-salaboy-fmtok8s-c4p-master-rele-dwjm4-62zp6[0m
+{"level":"warn","ts":1583158289.8994672,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/0.8.0-**-support-backwards-incompats\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1583158291.022582,"logger":"fallback-logger","caller":"git/git.go:103","msg":"Successfully cloned https://github.com/*******/fmtok8s-c4p.git @ v0.0.17 in path /workspace/source"}
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=master:a1cae9a380de1545aa64f214e846b2d231246a4a
+WARNING: no SHAs to merge, falling back to initial cloned commit
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-setup-jx-git-credentials[0m
+Generated Git credentials file /workspace/xdg_config/git/credentials
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-build-mvn-deploy[0m
+Picked up _JAVA_OPTIONS: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xms10m -Xmx192m
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.*******.conferences:fmtok8s-c4p >-----------------
+[INFO] Building From Monolith to K8s :: C4P Service 0.0.17
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] The POM for com.sun.xml.bind:jaxb-osgi:jar:2.2.10 is invalid, transitive dependencies (if any) will not be available, enable debug logging for more details
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ fmtok8s-c4p ---
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ fmtok8s-c4p ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ fmtok8s-c4p ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 6 source files to /workspace/source/target/classes
+[INFO] 
+[INFO] --- spring-cloud-contract-maven-plugin:2.2.1.RELEASE:generateTests (default-generateTests) @ fmtok8s-c4p ---
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.vmplugin.v7.Java7$1 (file:/home/jenkins/.mvnrepository/org/codehaus/groovy/groovy/2.5.8/groovy-2.5.8.jar) to constructor java.lang.invoke.MethodHandles$Lookup(java.lang.Class,int)
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.vmplugin.v7.Java7$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[INFO] Generating server tests source code for Spring Cloud Contract Verifier contract verification
+[INFO] Will use contracts provided in the folder [/workspace/source/src/test/resources/contracts]
+[INFO] Directory with contract is present at [/workspace/source/src/test/resources/contracts]
+[INFO] Test Source directory: /workspace/source/target/generated-test-sources/contracts added.
+[INFO] Using [null] as base class for test classes, [null] as base package for tests, [com.*******.conferences.c4p] as package with base classes, base class mappings []
+[INFO] Creating new class file [/workspace/source/target/generated-test-sources/contracts/com/*******/conferences/c4p/ContractVerifierTest.java]
+[INFO] Generated 1 test classes.
+[INFO] 
+[INFO] --- spring-cloud-contract-maven-plugin:2.2.1.RELEASE:convert (default-convert) @ fmtok8s-c4p ---
+[INFO] Will use contracts provided in the folder [/workspace/source/src/test/resources/contracts]
+[INFO] Copying Spring Cloud Contract Verifier contracts to [/workspace/source/target/stubs/META-INF/com.*******.conferences/fmtok8s-c4p/0.0.17/contracts]. Only files matching [.*] pattern will end up in the final JAR with stubs.
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Converting from Spring Cloud Contract Verifier contracts to WireMock stubs mappings
+[INFO]      Spring Cloud Contract Verifier contracts directory: /workspace/source/src/test/resources/contracts
+[INFO] Stub Server stubs mappings directory: /workspace/source/target/stubs/META-INF/com.*******.conferences/fmtok8s-c4p/0.0.17/mappings
+[INFO] Creating new stub [/workspace/source/target/stubs/META-INF/com.*******.conferences/fmtok8s-c4p/0.0.17/mappings/should accept POST with new Proposal.json]
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ fmtok8s-c4p ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] skip non existing resourceDirectory /workspace/source/target/generated-test-resources/contracts
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ fmtok8s-c4p ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to /workspace/source/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.0.0-M1:test (default-test) @ fmtok8s-c4p ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[WARNING] Corrupted STDOUT by directly writing to native stream in forked JVM 1. See FAQ web page and the dump file /workspace/source/target/surefire-reports/2020-03-02T14-12-18_678-jvmRun1.dumpstream
+14:12:25.163 [main] DEBUG org.springframework.test.context.junit4.SpringJUnit4ClassRunner - SpringJUnit4ClassRunner constructor called with [class com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.166 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+14:12:25.167 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+14:12:25.170 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.*******.conferences.c4p.ContractVerifierTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+14:12:25.179 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.*******.conferences.c4p.ContractVerifierTest], using SpringBootContextLoader
+14:12:25.182 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.*******.conferences.c4p.ContractVerifierTest]: class path resource [com/*******/conferences/c4p/ContractVerifierTest-context.xml] does not exist
+14:12:25.189 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.*******.conferences.c4p.ContractVerifierTest]: class path resource [com/*******/conferences/c4p/ContractVerifierTestContext.groovy] does not exist
+14:12:25.191 [main] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.*******.conferences.c4p.ContractVerifierTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:12:25.195 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.*******.conferences.c4p.ContractVerifierTest]: ContractVerifierTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:12:25.200 [main] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.200 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.*******.conferences.c4p.DemoApplication for test class com.*******.conferences.c4p.ContractVerifierTest
+14:12:25.251 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.*******.conferences.c4p.ContractVerifierTest]: using defaults.
+14:12:25.255 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:12:25.265 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [javax/servlet/ServletContext]
+14:12:25.273 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttributeSource]
+14:12:25.274 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+14:12:25.284 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5f9678e1, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@c4ed84, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@189aa67a, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5a9d6f02, org.springframework.test.context.event.EventPublishingTestExecutionListener@362045c0, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@112f364d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@5ccbeb64, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6d9f7a80, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@59252cb6, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@31d0e481]
+14:12:25.285 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.295 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.655 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.662 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.*******.conferences.c4p.ContractVerifierTest]
+[INFO] Running com.*******.conferences.c4p.ContractVerifierTest
+14:12:25.682 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.682 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.683 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.692 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.701 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@4212a0c8 testClass = ContractVerifierTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [ReactiveWebMergedContextConfiguration@1e7aa82b testClass = ContractVerifierTest, locations = '{}', classes = '{class com.*******.conferences.c4p.DemoApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{server.port=0, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@514646ef, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@1972e513, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@6b695b06, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@5b799640, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@68c9d179], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false]], class annotated with @DirtiesContext [false] with mode [null].
+14:12:25.746 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.747 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.*******.conferences.c4p.ContractVerifierTest]
+14:12:25.758 [main] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test context [[DefaultTestContext@4212a0c8 testClass = ContractVerifierTest, testInstance = com.*******.conferences.c4p.ContractVerifierTest@3dd1dc90, testMethod = [null], testException = [null], mergedContextConfiguration = [ReactiveWebMergedContextConfiguration@1e7aa82b testClass = ContractVerifierTest, locations = '{}', classes = '{class com.*******.conferences.c4p.DemoApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{server.port=0, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@514646ef, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@1972e513, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@6b695b06, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@5b799640, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@68c9d179], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> false]]].
+14:12:25.858 [main] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, server.port=0, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=0}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.0.RELEASE)
+
+2020-03-02 14:12:27.071  INFO 75 --- [           main] c.s.c.c4p.ContractVerifierTest           : Starting ContractVerifierTest on *******-fmtok8s-c4p-master-rele-dwjm4-20-from-build-pack-9jf42 with PID 75 (started by root in /workspace/source)
+2020-03-02 14:12:27.073  INFO 75 --- [           main] c.s.c.c4p.ContractVerifierTest           : No active profile set, falling back to default profiles: default
+2020-03-02 14:12:32.874  INFO 75 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 46881
+2020-03-02 14:12:32.884  INFO 75 --- [           main] c.s.c.c4p.ContractVerifierTest           : Started ContractVerifierTest in 7.018 seconds (JVM running for 12.62)
+2020-03-02 14:12:40.679  INFO 75 --- [or-http-epoll-2] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+> New Proposal Received Event ( Proposal{id='cedaff82-b404-4b9d-b8ac-e6a656deedf6', title='CSISQTSVJMEZOWJWTZDX', description='MCULZBXJMNECCZLRYXFX', author='RINNALCIJNJDTGEAJBDW', email='foo@bar1109578202.com', approved=false', status=PENDING'})
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.214 s - in com.*******.conferences.c4p.ContractVerifierTest
+[WARNING] ForkStarter IOException: org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+ using SpringBootContextLoader
+ Context.groovy}.
+ non-private, non-final, nested classes annotated with @Configuration.
+ org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+ org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@43f82e78, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@e54303, org.springframework.test.context.support.DirtiesContextTestExecutionListener@e8df99a, org.springframework.test.context.event.EventPublishingTestExecutionListener@2dc995f4, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2f40e5db, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@517566b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@64b73e7a, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@530712d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2df6226d]. See the dump file /workspace/source/target/surefire-reports/2020-03-02T14-12-18_678-jvmRun1.dumpstream
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- spring-cloud-contract-maven-plugin:2.2.1.RELEASE:generateStubs (default-generateStubs) @ fmtok8s-c4p ---
+[INFO] Files matching this pattern will be excluded from stubs generation []
+[INFO] Building jar: /workspace/source/target/fmtok8s-c4p-0.0.17-stubs.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:3.1.2:jar (default-jar) @ fmtok8s-c4p ---
+[INFO] Building jar: /workspace/source/target/fmtok8s-c4p-0.0.17.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.2.0.RELEASE:repackage (repackage) @ fmtok8s-c4p ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ fmtok8s-c4p ---
+[INFO] Installing /workspace/source/target/app.jar to /home/jenkins/.mvnrepository/com/*******/conferences/fmtok8s-c4p/0.0.17/fmtok8s-c4p-0.0.17.jar
+[INFO] Installing /workspace/source/pom.xml to /home/jenkins/.mvnrepository/com/*******/conferences/fmtok8s-c4p/0.0.17/fmtok8s-c4p-0.0.17.pom
+[INFO] Installing /workspace/source/target/fmtok8s-c4p-0.0.17-stubs.jar to /home/jenkins/.mvnrepository/com/*******/conferences/fmtok8s-c4p/0.0.17/fmtok8s-c4p-0.0.17-stubs.jar
+[INFO] 
+[INFO] --- maven-deploy-plugin:2.8.2:deploy (default-deploy) @ fmtok8s-c4p ---
+[INFO] Using alternate deployment repository local-nexus::default::http://nexus/repository/maven-releases/
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:19 min
+[INFO] Finished at: 2020-03-02T14:12:54Z
+[INFO] ------------------------------------------------------------------------
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-build-skaffold-version[0m
+v1.0.1
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-build-container-build[0m
+[36mINFO[0m[0000] Downloading base image openjdk:11-jre-slim   
+ERROR: logging before flag.Parse: E0302 14:12:57.333333      10 metadata.go:142] while reading 'google-dockercfg' metadata: http status code: 404 while fetching url http://metadata.google.internal./computeMetadata/v1/instance/attributes/google-dockercfg
+ERROR: logging before flag.Parse: E0302 14:12:57.337429      10 metadata.go:159] while reading 'google-dockercfg-url' metadata: http status code: 404 while fetching url http://metadata.google.internal./computeMetadata/v1/instance/attributes/google-dockercfg-url
+2020/03/02 14:12:57 No matching credentials were found, falling back on anonymous
+[36mINFO[0m[0001] Error while retrieving image from cache: getting file info: stat /workspace/sha256:88d4192a5dab8de64fbeec699bcea3739f097f78f3184cd4e2aea6d7ac238da7: no such file or directory 
+[36mINFO[0m[0001] Downloading base image openjdk:11-jre-slim   
+2020/03/02 14:12:58 No matching credentials were found, falling back on anonymous
+[36mINFO[0m[0002] cmd: EXPOSE                                  
+[36mINFO[0m[0002] Adding exposed port: 8080/tcp                
+[36mINFO[0m[0002] Using files from context: [/workspace/source/pom.xml] 
+[36mINFO[0m[0002] Using files from context: [/workspace/source/target/app.jar] 
+[36mINFO[0m[0002] Skipping unpacking as no commands require it. 
+[36mINFO[0m[0002] Taking snapshot of full filesystem...        
+[36mINFO[0m[0002] ENV PORT 8080                                
+[36mINFO[0m[0002] No files changed in this command, skipping snapshotting. 
+[36mINFO[0m[0002] ENV CLASSPATH /opt/lib                       
+[36mINFO[0m[0002] No files changed in this command, skipping snapshotting. 
+[36mINFO[0m[0002] EXPOSE 8080                                  
+[36mINFO[0m[0002] cmd: EXPOSE                                  
+[36mINFO[0m[0002] Adding exposed port: 8080/tcp                
+[36mINFO[0m[0002] No files changed in this command, skipping snapshotting. 
+[36mINFO[0m[0002] Using files from context: [/workspace/source/pom.xml] 
+[36mINFO[0m[0002] COPY pom.xml target/lib* /opt/lib/           
+[36mINFO[0m[0002] Taking snapshot of files...                  
+[36mINFO[0m[0002] Using files from context: [/workspace/source/target/app.jar] 
+[36mINFO[0m[0002] COPY target/app.jar /opt/app.jar             
+[36mINFO[0m[0002] Taking snapshot of files...                  
+[36mINFO[0m[0002] WORKDIR /opt                                 
+[36mINFO[0m[0002] cmd: workdir                                 
+[36mINFO[0m[0002] Changed working directory to /opt            
+[36mINFO[0m[0002] No files changed in this command, skipping snapshotting. 
+[36mINFO[0m[0002] ENTRYPOINT exec java $JAVA_OPTS -noverify -jar app.jar 
+[36mINFO[0m[0002] No files changed in this command, skipping snapshotting. 
+2020/03/02 14:13:00 existing blob: sha256:4874c5772968dcab87c114bee2baf2c7e9a06dda36e63bdfeab71bd4d6f02890
+2020/03/02 14:13:00 existing blob: sha256:d5c28bc4eb5532356cd06f142ed9cd6cee0811be74e992fdd2190fee8cbcf710
+2020/03/02 14:13:00 existing blob: sha256:68ced04f60ab5c7a5f1d0b0b4e7572c5a4c8cce44866513d30d9df1a15277d6b
+2020/03/02 14:13:00 existing blob: sha256:8afa8e973e226cdc57cde0ef199d85ee1aa93b5f6a04abf68dc4952cdab931d5
+2020/03/02 14:13:03 pushed blob: sha256:102e60abdb4bf49a965bba10f320f8b0e1c7160c5e9d43f84eaf2ff84ace1f55
+2020/03/02 14:13:03 pushed blob: sha256:36bdd470c67052a21cd3df7f376fee7a408be6d06a78613a8f1c202aef0c2263
+2020/03/02 14:13:05 pushed blob: sha256:a564af05ff1786b66c3f01291b18e70860cc2a16e52ceebb75619db851798fb1
+2020/03/02 14:13:07 gcr.io/camunda-consulting-de/fmtok8s-c4p:0.0.17: digest: sha256:b92ab35d40a325e440336419972f82e5430a7d9da9ebf447304ee4460ff69dad size: 1244
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-build-post-build[0m
+no CVE provider running in the current ** namespace so skip adding image to be analysed
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-promote-changelog[0m
+Converted /workspace/source/charts/fmtok8s-c4p to an unshallow repository
+Generating change log from git ref 0576458d11a3aef49db4e96baa94ecb0bda760e2 => 0ac5e12c5698f15f10adcf28fb8a4489ade04abd
+WARNING: Failed to enrich commit a1cae9a380de1545aa64f214e846b2d231246a4a with issues: selected more than one user from users.jenkins.io: [******* x-0]
+WARNING: Failed to enrich commit a1cae9a380de1545aa64f214e846b2d231246a4a with issues: selected more than one user from users.jenkins.io: [******* x-0]
+Finding issues in commit messages using git format
+WARNING: No release found for *******/fmtok8s-c4p and tag v0.0.17 so creating a new release
+Updated the release information at https://github.com/*******/fmtok8s-c4p/releases/tag/v0.0.17
+generated: /workspace/source/charts/fmtok8s-c4p/templates/release.yaml
+Created Release fmtok8s-c4p-0-0-17 resource in namespace **
+Updating PipelineActivity *******-fmtok8s-c4p-master-20 with version 0.0.17
+Updated PipelineActivities *******-fmtok8s-c4p-master-20 with release notes URL: https://github.com/*******/fmtok8s-c4p/releases/tag/v0.0.17
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-promote-helm-release[0m
+WARNING: No $CHART_REPOSITORY defined so using the default value of: http://jenkins-x-chartmuseum:8080
+Adding missing Helm repo: storage.googleapis.com https://storage.googleapis.com/chartmuseum.jenkins-x.io
+Successfully added Helm repository storage.googleapis.com.
+Adding missing Helm repo: jenkins-x-chartmuseum http://jenkins-x-chartmuseum:8080
+Successfully added Helm repository jenkins-x-chartmuseum.
+WARNING: No $CHART_REPOSITORY defined so using the default value of: http://jenkins-x-chartmuseum:8080
+Uploading chart file fmtok8s-c4p-0.0.17.tgz to http://jenkins-x-chartmuseum:8080/api/charts
+Received 201 response: {"saved":true}
+
+Showing logs for build [32msalaboy-fmtok8s-c4p-master-rele-dwjm4-20[0m stage [32mfrom-build-pack[0m and container [32mstep-promote-jx-promote[0m
+WARNING: prow based install so skip waiting for the merge of Pull Requests to go green as currently there is an issue with gettingstatuses from the PR, see https://github.com/jenkins-x/**/issues/2410
+WARNING: No $CHART_REPOSITORY defined so using the default value of: http://jenkins-x-chartmuseum:8080
+Promoting app fmtok8s-c4p version 0.0.17 to namespace **-staging
+WARNING: 
+Created Pull Request: https://github.com/*******/environment-kubecon-prep-staging/pull/55
+Added label updatebot to Pull Request https://github.com/*******/environment-kubecon-prep-staging/pull/55
+got git provider status pending from PR https://github.com/*******/environment-kubecon-prep-staging/pull/55
+got git provider status pending from PR https://github.com/*******/environment-kubecon-prep-staging/pull/55
+got git provider status pending from PR https://github.com/*******/environment-kubecon-prep-staging/pull/55
+got git provider status pending from PR https://github.com/*******/environment-kubecon-prep-staging/pull/55
+got git provider status pending from PR https://github.com/*******/environment-kubecon-prep-staging/pull/55
+got git provider status pending from PR https://github.com/*******/environment-kubecon-prep-staging/pull/55
+Pull Request https://github.com/*******/environment-kubecon-prep-staging/pull/55 is merged at sha d4a392ed7f72a85be93777dcaf9ec57cf62b1dfa
+Pull Request merged but we are not waiting for the update pipeline to complete!
