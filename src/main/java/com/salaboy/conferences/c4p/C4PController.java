@@ -90,8 +90,8 @@ public class C4PController {
         String[] days = {"Monday", "Tuesday"};
         String[] times = {"9:00 am", "10:00 am", "11:00 am", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm"};
         Random random = new Random();
-        int day = random.nextInt(1);
-        int time = random.nextInt(7);
+        int day = random.nextInt(2);
+        int time = random.nextInt(8);
         HttpEntity<AgendaItem> requestAgenda = new HttpEntity<>(new AgendaItem(proposal.getTitle(), proposal.getAuthor(), days[day], times[time]));
         restTemplate.postForEntity(AGENDA_SERVICE, requestAgenda, String.class);
     }
