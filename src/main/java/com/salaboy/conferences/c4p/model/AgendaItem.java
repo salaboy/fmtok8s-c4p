@@ -6,12 +6,15 @@ public class AgendaItem {
 
     private String title;
     private String author;
-    private Date talkTime;
+    private String day;
+    private String time;
 
-    public AgendaItem(String title, String author, Date talkTime) {
+    public AgendaItem(String title, String author, String day, String time) {
         this.title = title;
         this.author = author;
-        this.talkTime = talkTime;
+        this.day = day;
+        this.time = time;
+        this.time = time;
     }
 
 
@@ -34,11 +37,19 @@ public class AgendaItem {
         this.author = author;
     }
 
-    public Date getTalkTime() {
-        return talkTime;
+    public String getDay() {
+        return day;
     }
 
-    public void setTalkTime(Date talkTime) {
-        this.talkTime = talkTime;
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

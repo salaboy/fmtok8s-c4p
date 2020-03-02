@@ -15,9 +15,9 @@ import java.util.*;
 public class C4PController {
 
     @Value("${AGENDA_SERVICE:http://fmtok8s-agenda}")
-    private String AGENDA_SERVICE = "http://fmtok8s-agenda";
+    private String AGENDA_SERVICE;
     @Value("${EMAIL_SERVICE:http://fmtok8s-email}")
-    private String EMAIL_SERVICE = "http://fmtok8s-email";
+    private String EMAIL_SERVICE;
 
     @Value("${version:0.0.0}")
     private String version;
@@ -31,7 +31,7 @@ public class C4PController {
 
     @GetMapping("/info")
     public String infoWithVersion() {
-        return "C4P v" + version;
+        return "{ \"name\" : \"C4P Service\", \"version\" : \"" + version + "\" }";
     }
 
 
@@ -87,14 +87,19 @@ public class C4PController {
 
     private void createAgendaItem(Proposal proposal) {
         emitEvent("> Add Proposal To Agenda Event ");
-        HttpEntity<AgendaItem> requestAgenda = new HttpEntity<>(new AgendaItem(proposal.getTitle(), proposal.getAuthor(), new Date()));
+        String[] days = {"Monday", "Tuesday"};
+        String[] times = {"9:00 am", "10:00 am", "11:00 am", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm"};
+        Random random = new Random();
+        int day = random.nextInt(1);
+        int time = random.nextInt(7);
+        HttpEntity<AgendaItem> requestAgenda = new HttpEntity<>(new AgendaItem(proposal.getTitle(), proposal.getAuthor(), days[day], times[time]));
         restTemplate.postForEntity(AGENDA_SERVICE, requestAgenda, String.class);
     }
 
     private void notifySpeakerByEmail(@RequestBody ProposalDecision decision, Proposal proposal) {
         emitEvent("> Notify Speaker Event (via email: " + proposal.getEmail() + " -> " + ((decision.isApproved()) ? "Approved" : "Rejected") + ")");
         HttpEntity<Proposal> requestEmail = new HttpEntity<>(proposal);
-        restTemplate.postForEntity(EMAIL_SERVICE+"/notification", requestEmail, String.class);
+        restTemplate.postForEntity(EMAIL_SERVICE + "/notification", requestEmail, String.class);
     }
 
     private void emitEvent(String content) {
