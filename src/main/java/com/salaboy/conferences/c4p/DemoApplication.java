@@ -7,6 +7,8 @@ import com.salaboy.conferences.c4p.model.ProposalStatus;
 // import io.zeebe.spring.client.EnableZeebeClient;
 // import io.zeebe.spring.client.ZeebeClientLifecycle;
 // import io.zeebe.spring.client.annotation.ZeebeDeployment;
+import io.zeebe.spring.client.EnableZeebeClient;
+import io.zeebe.spring.client.annotation.ZeebeDeployment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -18,8 +20,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @SpringBootApplication
-// @EnableZeebeClient
-// @ZeebeDeployment(classPathResource = "c4p-orchestration.bpmn")
+@EnableZeebeClient
+@ZeebeDeployment(classPathResource = "c4p-orchestration.bpmn")
 public class DemoApplication {
 
     public static void main(String[] args) {
