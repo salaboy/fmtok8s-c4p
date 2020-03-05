@@ -7,11 +7,14 @@ import com.salaboy.conferences.c4p.model.ProposalStatus;
 import io.zeebe.spring.client.ZeebeClientLifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.ContextStartedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 
 @RestController
@@ -38,8 +41,8 @@ public class C4PController {
     }
 
 
-    @PostConstruct
-    public void init() {
+    @EventListener(classes = {ApplicationReadyEvent.class})
+    public void handleMultipleEvents() {
         System.out.println("Deploying Workflow...");
         client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn");
     }
