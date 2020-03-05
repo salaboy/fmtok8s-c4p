@@ -7,10 +7,13 @@ import com.salaboy.conferences.c4p.model.ProposalStatus;
 import io.zeebe.spring.client.ZeebeClientLifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.event.ContextStartedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @RestController
@@ -28,8 +31,8 @@ public class C4PController {
 
     private Set<Proposal> proposals = new HashSet<>();
 
-     @Autowired
-     private ZeebeClientLifecycle client;
+    @Autowired
+    private ZeebeClientLifecycle client;
 
     @GetMapping("/info")
     public String infoWithVersion() {
@@ -37,14 +40,20 @@ public class C4PController {
     }
 
 
+    @PostConstruct
+    public void init() {
+        System.out.println("Deploying Workflow...");
+        client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn");
+    }
+
     @PostMapping()
     public Proposal newProposal(@RequestBody Proposal proposal) {
         proposals.add(proposal);
-         client.newCreateInstanceCommand()
-                 .bpmnProcessId("C4P")
-                 .latestVersion()
-                 .variables(Collections.singletonMap("proposal", proposal))
-                 .send();
+        client.newCreateInstanceCommand()
+                .bpmnProcessId("C4P")
+                .latestVersion()
+                .variables(Collections.singletonMap("proposal", proposal))
+                .send();
         emitEvent("> New Proposal Received Event ( " + proposal + ")");
         return proposal;
     }
@@ -71,9 +80,9 @@ public class C4PController {
             proposal.setStatus(ProposalStatus.DECIDED);
             proposals.add(proposal);
 
-             client.newPublishMessageCommand()
-                     .messageName("DecisionMade").correlationKey(proposal.getId())
-                     .variables(Collections.singletonMap("proposal", proposal)).send();
+            client.newPublishMessageCommand()
+                    .messageName("DecisionMade").correlationKey(proposal.getId())
+                    .variables(Collections.singletonMap("proposal", proposal)).send();
             //Only if it is Approved create a new Agenda Item into the Agenda Service
 //            if (decision.isApproved()) {
 //                createAgendaItem(proposal);
