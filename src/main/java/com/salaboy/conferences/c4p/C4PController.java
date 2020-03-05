@@ -7,8 +7,6 @@ import com.salaboy.conferences.c4p.model.ProposalStatus;
 import io.zeebe.spring.client.ZeebeClientLifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.event.ContextStartedEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
