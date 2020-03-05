@@ -44,7 +44,7 @@ public class C4PController {
     @EventListener(classes = {ApplicationReadyEvent.class})
     public void handleMultipleEvents() {
         System.out.println("Deploying Workflow...");
-        client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn");
+        client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn").send();
     }
 
     @PostMapping()
