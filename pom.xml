@@ -33,11 +33,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.zeebe.spring</groupId>
-            <artifactId>spring-zeebe-starter</artifactId>
-            <version>${zeebe-spring.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.zeebe.spring</groupId>-->
+<!--            <artifactId>spring-zeebe-starter</artifactId>-->
+<!--            <version>${zeebe-spring.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
