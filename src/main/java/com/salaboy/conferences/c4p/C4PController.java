@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class C4PController {
@@ -60,9 +61,18 @@ public class C4PController {
         return proposal;
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteProposal(@PathVariable("id") String id) {
+        proposals.stream().filter(p -> p.getId().equals(id)).findFirst().ifPresent(p -> proposals.remove(p));
+    }
+
     @GetMapping()
-    public Set<Proposal> getAll() {
-        return proposals;
+    public Set<Proposal> getAll(@RequestParam(value = "pending", defaultValue = "false", required = false) boolean pending) {
+        if (!pending) {
+            return proposals;
+        } else {
+            return proposals.stream().filter(p -> p.getStatus().equals(ProposalStatus.PENDING)).collect(Collectors.toSet());
+        }
     }
 
     @GetMapping("/{id}")
