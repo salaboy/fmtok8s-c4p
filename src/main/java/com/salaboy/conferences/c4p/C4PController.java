@@ -4,8 +4,8 @@ import com.salaboy.conferences.c4p.model.AgendaItem;
 import com.salaboy.conferences.c4p.model.Proposal;
 import com.salaboy.conferences.c4p.model.ProposalDecision;
 import com.salaboy.conferences.c4p.model.ProposalStatus;
-//import io.zeebe.spring.client.ZeebeClientLifecycle;
-//import org.springframework.beans.factory.annotation.Autowired;
+import io.zeebe.spring.client.ZeebeClientLifecycle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -33,8 +33,8 @@ public class C4PController {
 
     private Set<Proposal> proposals = new HashSet<>();
 
-//    @Autowired
-//    private ZeebeClientLifecycle client;
+    @Autowired
+    private ZeebeClientLifecycle client;
 
     @GetMapping("/info")
     public String infoWithVersion() {
@@ -45,18 +45,18 @@ public class C4PController {
     @EventListener(classes = {ApplicationReadyEvent.class})
     public void handleMultipleEvents() {
         System.out.println("C4P Service Started!");
-//        System.out.println("Deploying Workflow...");
-//        client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn").send();
+        System.out.println("Deploying Workflow...");
+        client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn").send();
     }
 
     @PostMapping()
     public Proposal newProposal(@RequestBody Proposal proposal) {
         proposals.add(proposal);
-//        client.newCreateInstanceCommand()
-//                .bpmnProcessId("C4P")
-//                .latestVersion()
-//                .variables(Collections.singletonMap("proposal", proposal))
-//                .send();
+        client.newCreateInstanceCommand()
+                .bpmnProcessId("C4P")
+                .latestVersion()
+                .variables(Collections.singletonMap("proposal", proposal))
+                .send();
         emitEvent("> New Proposal Received Event ( " + proposal + ")");
         return proposal;
     }
@@ -92,9 +92,9 @@ public class C4PController {
             proposal.setStatus(ProposalStatus.DECIDED);
             proposals.add(proposal);
 
-//            client.newPublishMessageCommand()
-//                    .messageName("DecisionMade").correlationKey(proposal.getId())
-//                    .variables(Collections.singletonMap("proposal", proposal)).send();
+            client.newPublishMessageCommand()
+                    .messageName("DecisionMade").correlationKey(proposal.getId())
+                    .variables(Collections.singletonMap("proposal", proposal)).send();
 //            Only if it is Approved create a new Agenda Item into the Agenda Service
             if (decision.isApproved()) {
                 createAgendaItem(proposal);
