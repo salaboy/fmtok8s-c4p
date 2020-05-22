@@ -4,6 +4,8 @@ import com.salaboy.conferences.c4p.model.AgendaItem;
 import com.salaboy.conferences.c4p.model.Proposal;
 import com.salaboy.conferences.c4p.model.ProposalDecision;
 import com.salaboy.conferences.c4p.model.ProposalStatus;
+import io.zeebe.client.api.response.DeploymentEvent;
+import io.zeebe.client.api.response.Workflow;
 import io.zeebe.spring.client.ZeebeClientLifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,8 +47,14 @@ public class C4PController {
     @EventListener(classes = {ApplicationReadyEvent.class})
     public void handleMultipleEvents() {
         System.out.println("C4P Service Started!");
-        System.out.println("Deploying Workflow...");
-        client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn").send();
+
+        DeploymentEvent deploymentEvent = client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn").send().join();
+        System.out.println("Deploying Workflow... " + deploymentEvent.getKey());
+        for(Workflow w : deploymentEvent.getWorkflows()){
+            System.out.println("processId: " + w.getBpmnProcessId());
+            System.out.println("resourceName: " + w.getResourceName());
+            System.out.println("workflowKey: " + w.getWorkflowKey());
+        }
     }
 
     @PostMapping()
