@@ -41,13 +41,16 @@ public class C4PController {
     @EventListener(classes = {ApplicationReadyEvent.class})
     public void handleMultipleEvents() {
         log.info("C4P Service Started!");
-
-        DeploymentEvent deploymentEvent = client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn").send().join();
-        log.info("Deploying Workflow... " + deploymentEvent.getKey());
-        for(Workflow w : deploymentEvent.getWorkflows()){
-            log.info("> processId: " + w.getBpmnProcessId());
-            log.info("> resourceName: " + w.getResourceName());
-            log.info("> workflowKey: " + w.getWorkflowKey());
+        try {
+            DeploymentEvent deploymentEvent = client.newDeployCommand().addResourceFromClasspath("c4p-orchestration.bpmn").send().join();
+            log.info("Deploying Workflow... " + deploymentEvent.getKey());
+            for (Workflow w : deploymentEvent.getWorkflows()) {
+                log.info("> processId: " + w.getBpmnProcessId());
+                log.info("> resourceName: " + w.getResourceName());
+                log.info("> workflowKey: " + w.getWorkflowKey());
+            }
+        }catch(Exception e){
+            log.error("Deploy Workflow Failed, needs retry...");
         }
     }
 

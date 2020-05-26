@@ -21,7 +21,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <spring.cloud.contract>2.2.1.RELEASE</spring.cloud.contract>
         <zeebe-spring.version>0.23.0</zeebe-spring.version>
-
+        <springdoc-openapi-ui.version>1.2.32</springdoc-openapi-ui.version>
     </properties>
 
     <dependencies>
@@ -37,6 +37,11 @@
             <groupId>io.zeebe.spring</groupId>
             <artifactId>spring-zeebe-starter</artifactId>
             <version>${zeebe-spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webflux-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
