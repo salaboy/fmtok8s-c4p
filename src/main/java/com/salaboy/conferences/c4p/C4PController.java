@@ -5,6 +5,7 @@ import com.salaboy.conferences.c4p.model.ProposalDecision;
 import com.salaboy.conferences.c4p.model.ProposalStatus;
 import io.zeebe.client.api.response.DeploymentEvent;
 import io.zeebe.client.api.response.Workflow;
+import io.zeebe.client.api.response.WorkflowInstanceEvent;
 import io.zeebe.spring.client.ZeebeClientLifecycle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,9 @@ public class C4PController {
     @Value("${version:0.0.0}")
     private String version;
 
-    private RestTemplate restTemplate = new RestTemplate();
 
     private Set<Proposal> proposals = new HashSet<>();
+    private Map<String, Long> proposalsWorkflowKeys = new HashMap<>();
 
     @Autowired
     private ZeebeClientLifecycle client;
@@ -57,11 +58,14 @@ public class C4PController {
     @PostMapping()
     public Proposal newProposal(@RequestBody Proposal proposal) {
         proposals.add(proposal);
-        client.newCreateInstanceCommand()
+        WorkflowInstanceEvent workflowInstanceEvent = client.newCreateInstanceCommand()
                 .bpmnProcessId("C4P")
                 .latestVersion()
                 .variables(Collections.singletonMap("proposal", proposal))
-                .send();
+                .send().join();
+
+        proposalsWorkflowKeys.put(proposal.getId(), workflowInstanceEvent.getWorkflowInstanceKey());
+
         emitEvent("> New Proposal Received Event ( " + proposal + ")");
         return proposal;
     }
@@ -70,6 +74,15 @@ public class C4PController {
     public void deleteProposal(@PathVariable("id") String id) {
         proposals.stream().filter(p -> p.getId().equals(id)).findFirst().ifPresent(p -> proposals.remove(p));
     }
+
+    @DeleteMapping("/")
+    public void deleteProposalS() {
+        for(String proposalId : proposalsWorkflowKeys.keySet()) {
+            log.info("Cancelling Proposal Id: " + proposalId + " with workflowInstanceKey: " + proposalsWorkflowKeys.get(proposalId));
+            client.newCancelInstanceCommand(proposalsWorkflowKeys.get(proposalId)).send();
+        }
+    }
+
 
     @GetMapping()
     public Set<Proposal> getAll(@RequestParam(value = "pending", defaultValue = "false", required = false) boolean pending) {
