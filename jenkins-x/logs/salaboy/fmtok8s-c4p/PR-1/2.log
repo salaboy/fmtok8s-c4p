@@ -1,0 +1,36 @@
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-pr-1-p-727ff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-credential-initializer-j5bdr[0m
+{"level":"info","ts":1590760356.4130301,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/refs/heads/0.8.0-ns-support: no such file or directory"}
+{"level":"info","ts":1590760356.414153,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-pr-1-p-727ff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-working-dir-initializer-5snrh[0m
+{"level":"info","ts":1590760357.6149993,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1590760357.650809,"logger":"fallback-logger","caller":"bash/main.go:64","msg":"Successfully executed command \"sh -c mkdir -p /workspace/source\"; output "}
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-pr-1-p-727ff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-place-tools[0m
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-pr-1-p-727ff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-git-source-meta-salaboy-fmtok8s-c4p-pr-1-p-727ff-q9bwz[0m
+{"level":"info","ts":1590760362.780891,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/refs/heads/0.8.0-ns-support: no such file or directory"}
+{"level":"info","ts":1590760364.1472318,"logger":"fallback-logger","caller":"git/git.go:103","msg":"Successfully cloned https://github.com/*******/fmtok8s-c4p.git @ c331cfd571c3b6521209e0edd126666c4e2f5edd in path /workspace/source"}
+
+Showing logs for build [32mmeta-salaboy-fmtok8s-c4p-pr-1-p-727ff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=master:c331cfd571c3b6521209e0edd126666c4e2f5edd,1:f7bbcc8de3a56bf391d10c54860c46af4e92538d
+DEBUG: JX_LOG_LEVEL=error LC_ALL=C git fetch origin --unshallow f7bbcc8de3a56bf391d10c54860c46af4e92538d: c331cfd571c3b6521209e0edd126666c4e2f5edd:
+DEBUG: ran git fetch --unshallow origin f7bbcc8de3a56bf391d10c54860c46af4e92538d: c331cfd571c3b6521209e0edd126666c4e2f5edd: in 
+DEBUG: LC_ALL=C JX_LOG_LEVEL=error git branch
+DEBUG: LC_ALL=C JX_LOG_LEVEL=error git checkout master
+DEBUG: ran git checkout master in 
+DEBUG: LC_ALL=C JX_LOG_LEVEL=error git reset --hard c331cfd571c3b6521209e0edd126666c4e2f5edd
+DEBUG: ran git reset --hard c331cfd571c3b6521209e0edd126666c4e2f5edd in 
+DEBUG: LC_ALL=C JX_LOG_LEVEL=error git clean -fd .
+DEBUG: ran clean --force -d . in 
+DEBUG: LC_ALL=C JX_LOG_LEVEL=error git merge f7bbcc8de3a56bf391d10c54860c46af4e92538d
+error: error during merge: merging f7bbcc8de3a56bf391d10c54860c46af4e92538d into master: git output: CONFLICT (modify/delete): src/main/resources/c4p-orchestration.bpmn deleted in f7bbcc8de3a56bf391d10c54860c46af4e92538d and modified in HEAD. Version HEAD of src/main/resources/c4p-orchestration.bpmn left in tree.
+Auto-merging src/main/java/com/*******/conferences/c4p/C4PController.java
+CONFLICT (content): Merge conflict in src/main/java/com/*******/conferences/c4p/C4PController.java
+Automatic merge failed; fix conflicts and then commit the result.: failed to run 'git merge f7bbcc8de3a56bf391d10c54860c46af4e92538d' command in directory '', output: 'CONFLICT (modify/delete): src/main/resources/c4p-orchestration.bpmn deleted in f7bbcc8de3a56bf391d10c54860c46af4e92538d and modified in HEAD. Version HEAD of src/main/resources/c4p-orchestration.bpmn left in tree.
+Auto-merging src/main/java/com/*******/conferences/c4p/C4PController.java
+CONFLICT (content): Merge conflict in src/main/java/com/*******/conferences/c4p/C4PController.java
+Automatic merge failed; fix conflicts and then commit the result.'
+[31m
+Pipeline failed on stage 'meta-pipeline' : container 'step-git-merge'. The execution of the pipeline has stopped.[0m
