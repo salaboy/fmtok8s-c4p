@@ -1,31 +1,23 @@
 package com.salaboy.conferences.c4p;
 
-import com.salaboy.conferences.c4p.model.AgendaItem;
 import com.salaboy.conferences.c4p.model.Proposal;
 import com.salaboy.conferences.c4p.model.ProposalDecision;
 import com.salaboy.conferences.c4p.model.ProposalStatus;
 import com.salaboy.conferences.c4p.services.AgendaService;
 import com.salaboy.conferences.c4p.services.EmailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import lombok.extern.slf4j.Slf4j;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @Slf4j
 public class C4PController {
 
-
-
-
     @Value("${version:0.0.0}")
     private String version;
-
-
 
     @Autowired
     private ProposalStorageService proposalStorageService;
@@ -36,15 +28,10 @@ public class C4PController {
     @Autowired
     private EmailService emailService;
 
-
-
     @GetMapping("/info")
     public String infoWithVersion() {
         return "{ \"name\" : \"C4P Service - No Workflow\", \"version\" : \"" + version + "\", \"source\": \"https://github.com/salaboy/fmtok8s-c4p/releases/tag/v"+version+"\" }";
     }
-
-
-
 
     @PostMapping()
     public Proposal newProposal(@RequestBody Proposal proposal) {
@@ -93,7 +80,6 @@ public class C4PController {
         }
 
     }
-
 
     private void emitEvent(String content) {
         log.info(content);
