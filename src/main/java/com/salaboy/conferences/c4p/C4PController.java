@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -116,7 +115,6 @@ public class C4PController {
             PublishMessageResponse publishMessageResponse = client.newPublishMessageCommand()
                     .messageName("DecisionMade").correlationKey(proposal.getId())
                     .variables(Collections.singletonMap("proposal", proposal)).send().join();
-            log.info(publishMessageResponse.toString());
         } else {
             emitEvent(" Proposal Not Found Event (" + id + ")");
         }
