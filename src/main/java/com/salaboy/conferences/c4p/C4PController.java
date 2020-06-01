@@ -81,6 +81,8 @@ public class C4PController {
             log.info("Cancelling Proposal Id: " + proposalId + " with workflowInstanceKey: " + proposalsWorkflowKeys.get(proposalId));
             client.newCancelInstanceCommand(proposalsWorkflowKeys.get(proposalId)).send();
         }
+
+        proposals.clear();
     }
 
 
