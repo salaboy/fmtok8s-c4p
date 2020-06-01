@@ -4,6 +4,7 @@ import com.salaboy.conferences.c4p.model.Proposal;
 import com.salaboy.conferences.c4p.model.ProposalDecision;
 import com.salaboy.conferences.c4p.model.ProposalStatus;
 import io.zeebe.client.api.response.DeploymentEvent;
+import io.zeebe.client.api.response.PublishMessageResponse;
 import io.zeebe.client.api.response.Workflow;
 import io.zeebe.client.api.response.WorkflowInstanceEvent;
 import io.zeebe.spring.client.ZeebeClientLifecycle;
@@ -112,9 +113,10 @@ public class C4PController {
             proposal.setStatus(ProposalStatus.DECIDED);
             proposals.add(proposal);
             // Notify the workflow that a decision was made
-            client.newPublishMessageCommand()
+            PublishMessageResponse publishMessageResponse = client.newPublishMessageCommand()
                     .messageName("DecisionMade").correlationKey(proposal.getId())
-                    .variables(Collections.singletonMap("proposal", proposal)).send();
+                    .variables(Collections.singletonMap("proposal", proposal)).send().join();
+            log.info(publishMessageResponse.toString());
         } else {
             emitEvent(" Proposal Not Found Event (" + id + ")");
         }
