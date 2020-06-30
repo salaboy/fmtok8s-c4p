@@ -4,4 +4,4 @@ pipelineConfig:
     release:
       promote:
         steps:
-        - command: jx step create pr chart --name fmtok8s-c4p --version $VERSION  --repo https://github.com/salaboy/fmtok8s-jnation-app.git
+        - command: jx step create pr chart --name fmtok8s-c4p --version $VERSION  --repo https://github.com/salaboy/fmtok8s-kubecon-app.git
