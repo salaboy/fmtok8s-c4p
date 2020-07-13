@@ -60,7 +60,7 @@ public class C4PController {
         proposals.add(proposal);
         WorkflowInstanceEvent workflowInstanceEvent = client.newCreateInstanceCommand()
                 .bpmnProcessId("C4P")
-                .latestVersion()
+                .version(1)
                 .variables(Collections.singletonMap("proposal", proposal))
                 .send().join();
 
