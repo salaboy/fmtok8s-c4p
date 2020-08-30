@@ -35,7 +35,7 @@ public class C4PController {
 
     @GetMapping("/info")
     public String infoWithVersion() {
-        return "{ \"name\" : \"C4P Service\", \"version\" : \"" + version + "\", \"source\": \"https://github.com/salaboy/fmtok8s-c4p/releases/tag/v"+version+"\" }";
+        return "{ \"name\" : \"C4P Service\", \"version\" : \"v" + version + "\", \"source\": \"https://github.com/salaboy/fmtok8s-c4p/releases/tag/v"+version+"\" }";
     }
 
 
