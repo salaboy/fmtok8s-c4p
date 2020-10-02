@@ -1,10 +1,19 @@
 package com.salaboy.conferences.c4p.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity(name = "proposal")
 public class Proposal {
 
+    @Id
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(generator="system-uuid")
     private String id;
     private String title;
     private String description;
