@@ -68,7 +68,7 @@ public class    C4PController {
     }
 
     @DeleteMapping("/")
-    public void deleteProposalS() {
+    public void deleteProposals() {
 
         for(String proposalId : proposalsWorkflowKeys.keySet()) {
             log.info("Cancelling Proposal Id: " + proposalId + " with workflowInstanceKey: " + proposalsWorkflowKeys.get(proposalId));

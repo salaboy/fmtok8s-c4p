@@ -49,6 +49,12 @@ public class C4PControllerIT {
                 .expectStatus().isOk();
     }
 
+    private WebTestClient.ResponseSpec getAllProposals() {
+        return webTestClient.get()
+                .uri("/")
+                .exchange();
+    }
+
     @Test
     public void newProposal_ShouldBeCreateAProposal() {
 
@@ -71,5 +77,23 @@ public class C4PControllerIT {
                 .uri("/" + proposal.getId())
                 .exchange()
                 .expectStatus().isOk();
+
+        getAllProposals().expectBodyList(Proposal.class).hasSize(0);
+    }
+
+    @Test
+    public void deleteProposals_ShouldDeleteAllProposals() {
+
+        // arrange
+        createProposalRequest();
+        createProposalRequest();
+
+        // action, assert
+        webTestClient.delete()
+                .uri("/")
+                .exchange()
+                .expectStatus().isOk();
+
+        getAllProposals().expectBodyList(Proposal.class).hasSize(0);
     }
 }
