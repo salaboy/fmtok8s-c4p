@@ -15,7 +15,7 @@ import java.util.*;
 
 @RestController
 @Slf4j
-public class C4PController {
+public class    C4PController {
 
     private Map<String, Long> proposalsWorkflowKeys = new HashMap<>();
 
