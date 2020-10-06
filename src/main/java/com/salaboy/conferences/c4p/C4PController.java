@@ -73,23 +73,17 @@ public class C4PController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity deleteProposal(@PathVariable("id") String id) {
 
-        System.out.println(":::::: from request" + id);
-        Optional<Proposal> byId = proposalRepository.findById(id);
+        var optionalProposal = proposalRepository.findById(id);
 
-        for (Proposal i : proposalRepository.findAll()) {
-            System.out.println(i);
-        }
+        if (optionalProposal.isPresent()) {
 
-        if (byId.isPresent()) {
-
-            System.out.println(">>>>>>> " + byId.get());
             proposalRepository.deleteById(id);
 
             return new ResponseEntity<>(HttpStatus.OK);
+
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @DeleteMapping("/")
