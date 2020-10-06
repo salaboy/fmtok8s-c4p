@@ -1,99 +1,145 @@
 package com.salaboy.conferences.c4p.controller;
 
-import com.salaboy.conferences.c4p.C4PController;
+import com.salaboy.conferences.c4p.C4PApplication;
 import com.salaboy.conferences.c4p.ProposalRepository;
+import com.salaboy.conferences.c4p.TestConfiguration;
 import com.salaboy.conferences.c4p.model.Proposal;
-import io.zeebe.client.ZeebeClientBuilder;
-import io.zeebe.spring.client.ZeebeClientLifecycle;
+import com.salaboy.conferences.c4p.model.ProposalDecision;
+import com.salaboy.conferences.c4p.model.ProposalStatus;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
-import static org.mockito.Answers.RETURNS_DEEP_STUBS;
+import java.util.List;
 
-@ExtendWith(SpringExtension.class)
-@WebFluxTest(controllers = C4PController.class)
+import static org.assertj.core.api.Assertions.assertThat;
+
+@AutoConfigureWebTestClient
+@ContextConfiguration(classes = C4PApplication.class)
+@Import(value = {TestConfiguration.class})
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class C4PControllerIT {
+
+
+    @Autowired
+    private ApplicationContext context;
 
     @Autowired
     private WebTestClient webTestClient;
 
-    @MockBean
+    @Autowired
     private ProposalRepository proposalRepository;
 
-    @MockBean(answer = RETURNS_DEEP_STUBS)
-    private ZeebeClientLifecycle zeebeClientLifecycle;
+    @BeforeEach
+    public void beforeAll() {
+        deleteProposals();
+    }
 
-    @MockBean(answer = RETURNS_DEEP_STUBS)
-    private ZeebeClientBuilder zeebeClientBuilder;
-
-    private WebTestClient.ResponseSpec createProposalRequest() {
+    private Proposal createProposal() {
 
         var requestProposal =
                 new Proposal("Title", "Description", "Author", "email@email.com");
-
-        Mockito.when(proposalRepository.save(requestProposal)).thenReturn(requestProposal);
 
         return webTestClient.post()
                 .uri("/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(requestProposal))
                 .exchange()
-                .expectStatus().isOk();
+                .expectStatus()
+                .isCreated()
+                .expectBody(Proposal.class)
+                .returnResult()
+                .getResponseBody();
     }
 
-    private WebTestClient.ResponseSpec getAllProposals() {
+    private List<Proposal> getAllProposals() {
+
         return webTestClient.get()
                 .uri("/")
-                .exchange();
+                .exchange()
+                .expectBodyList(Proposal.class)
+                .returnResult()
+                .getResponseBody();
     }
 
     @Test
     public void newProposal_ShouldBeCreateAProposal() {
 
         // action
-        var responseSpec = createProposalRequest();
+        var proposal = createProposal();
 
         // assert
-        responseSpec.expectBody(Proposal.class);
+        assertThat(proposal.getId()).isNotBlank().isNotNull().isNotEmpty();
     }
 
     @Test
     public void deleteProposal_ShouldDeleteProposalById() {
 
         // arrange
-        var responseSpec = createProposalRequest();
-        var proposal = responseSpec.expectBody(Proposal.class).returnResult().getResponseBody();
+        var proposal = createProposal();
 
         // action, assert
         webTestClient.delete()
                 .uri("/" + proposal.getId())
                 .exchange()
-                .expectStatus().isOk();
+                .expectStatus()
+                .isOk();
 
-        getAllProposals().expectBodyList(Proposal.class).hasSize(0);
+        assertThatThereAreNotProposals();
     }
 
     @Test
     public void deleteProposals_ShouldDeleteAllProposals() {
 
         // arrange
-        createProposalRequest();
-        createProposalRequest();
+        createProposal();
+        createProposal();
 
         // action, assert
-        webTestClient.delete()
-                .uri("/")
-                .exchange()
-                .expectStatus().isOk();
+        deleteProposals().expectStatus().isOk();
 
-        getAllProposals().expectBodyList(Proposal.class).hasSize(0);
+        assertThatThereAreNotProposals();
+    }
+
+    @Test
+    public void decide_ShouldBeDecidedProposal() {
+
+        var proposal = createProposal();
+        var decision = new ProposalDecision(true);
+
+        webTestClient.post()
+                .uri("/" + proposal.getId() + "/decision")
+                .body(BodyInserters.fromValue(decision))
+                .exchange()
+                .expectStatus()
+                .isOk();
+
+        getAllProposals().forEach(item -> {
+            assertThat(item.getStatus()).isEqualTo(ProposalStatus.DECIDED);
+        });
+    }
+
+    private void assertThatThereAreNotProposals() {
+        assertThat(getAllProposals()).hasSize(0);
+    }
+
+    private WebTestClient.ResponseSpec deleteProposals() {
+        return webTestClient.delete()
+                .uri("/")
+                .exchange();
     }
 }
+

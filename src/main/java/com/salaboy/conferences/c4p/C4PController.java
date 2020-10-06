@@ -9,15 +9,18 @@ import io.zeebe.spring.client.ZeebeClientLifecycle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.*;
 
 @RestController
 @Slf4j
-public class    C4PController {
+public class C4PController {
 
-    private Map<String, Long> proposalsWorkflowKeys = new HashMap<>();
+    private final Map<String, Long> proposalsWorkflowKeys = new HashMap<>();
 
     private final ZeebeClientLifecycle client;
     private final ProposalRepository proposalRepository;
@@ -43,32 +46,54 @@ public class    C4PController {
         }
     }
 
-    @PostMapping()
-    public Proposal newProposal(@RequestBody Proposal proposal) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Proposal> newProposal(@RequestBody Proposal proposal) {
 
-        var proposalSaved = proposalRepository.save(proposal);
+        System.out.println(">>>>>>> " + proposal.getId());
+
+        var saved = proposalRepository.save(proposal);
 
         var workflowInstanceEvent = client.newCreateInstanceCommand()
                 .bpmnProcessId("C4P")
                 .latestVersion()
-                .variables(Collections.singletonMap("proposal", proposal))
+                .variables(Collections.singletonMap("proposal", saved))
                 .send().join();
 
-        proposalsWorkflowKeys.put(proposalSaved.getId(), workflowInstanceEvent.getWorkflowInstanceKey());
+        proposalsWorkflowKeys.put(saved.getId(), workflowInstanceEvent.getWorkflowInstanceKey());
 
         emitEvent("> New Proposal Received Event ( " + proposal + ")");
 
-        return proposal;
+        return ResponseEntity
+                .created(URI.create("/" + saved.getId()))
+                .body(saved);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProposal(@PathVariable("id") String id) {
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity deleteProposal(@PathVariable("id") String id) {
 
-        proposalRepository.deleteById(id);
+        System.out.println(":::::: from request" + id);
+        Optional<Proposal> byId = proposalRepository.findById(id);
+
+        for (Proposal i : proposalRepository.findAll()) {
+            System.out.println(i);
+        }
+
+        if (byId.isPresent()) {
+
+            System.out.println(">>>>>>> " + byId.get());
+            proposalRepository.deleteById(id);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @DeleteMapping("/")
-    public void deleteProposals() {
+    public ResponseEntity<Void> deleteProposals() {
 
         for(String proposalId : proposalsWorkflowKeys.keySet()) {
             log.info("Cancelling Proposal Id: " + proposalId + " with workflowInstanceKey: " + proposalsWorkflowKeys.get(proposalId));
@@ -76,6 +101,8 @@ public class    C4PController {
         }
 
         proposalRepository.deleteAll();
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping()
@@ -102,22 +129,21 @@ public class    C4PController {
         var proposalOptional = proposalRepository.findById(id);
 
         if (proposalOptional.isPresent()) {
+
             var proposal = proposalOptional.get();
 
-            // Apply Decision to Proposal
-            proposal.setApproved(decision.isApproved());
-            proposal.setStatus(ProposalStatus.DECIDED);
+            proposal.approve();
+
             proposalRepository.save(proposal);
 
             // Notify the workflow that a decision was made
-            var publishMessageResponse = client.newPublishMessageCommand()
+            client.newPublishMessageCommand()
                     .messageName("DecisionMade").correlationKey(proposal.getId())
                     .variables(Collections.singletonMap("proposal", proposal)).send().join();
         } else {
 
             emitEvent(" Proposal Not Found Event (" + id + ")");
         }
-
     }
 
     private void emitEvent(String content) {
