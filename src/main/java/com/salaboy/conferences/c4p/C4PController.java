@@ -47,10 +47,7 @@ public class C4PController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Proposal> newProposal(@RequestBody Proposal proposal) {
-
-        System.out.println(">>>>>>> " + proposal.getId());
 
         var saved = proposalRepository.save(proposal);
 
@@ -64,9 +61,7 @@ public class C4PController {
 
         emitEvent("> New Proposal Received Event ( " + proposal + ")");
 
-        return ResponseEntity
-                .created(URI.create("/" + saved.getId()))
-                .body(saved);
+        return ResponseEntity.ok().body(saved);
     }
 
     @DeleteMapping("/{id}")
