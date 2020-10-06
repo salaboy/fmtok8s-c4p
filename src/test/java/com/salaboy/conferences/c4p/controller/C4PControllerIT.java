@@ -59,7 +59,7 @@ public class C4PControllerIT {
                 .body(BodyInserters.fromValue(requestProposal))
                 .exchange()
                 .expectStatus()
-                .isCreated()
+                .isOk()
                 .expectBody(Proposal.class)
                 .returnResult()
                 .getResponseBody();
