@@ -6,14 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity(name = "proposal")
 public class Proposal {
 
     @Id
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @GeneratedValue(generator = "system-uuid")
     private String id;
     private String title;
     private String description;
@@ -22,7 +21,8 @@ public class Proposal {
     private boolean approved = false;
     private ProposalStatus status = ProposalStatus.PENDING;
 
-    protected Proposal() {}
+    protected Proposal() {
+    }
 
     public Proposal(String title, String description, String author, String email) {
         this.title = title;

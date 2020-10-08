@@ -9,9 +9,8 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest( webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = "server.port=0")
-
 public abstract class ContractVerifierBase {
 
     @LocalServerPort
@@ -22,6 +21,4 @@ public abstract class ContractVerifierBase {
         MockitoAnnotations.initMocks(this);
         RestAssured.baseURI = "http://localhost:" + this.port;
     }
-
-
 }
