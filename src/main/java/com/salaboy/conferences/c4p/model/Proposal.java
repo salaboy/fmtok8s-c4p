@@ -1,10 +1,19 @@
 package com.salaboy.conferences.c4p.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity(name = "proposal")
 public class Proposal {
 
+    @Id
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(generator="system-uuid")
     private String id;
     private String title;
     private String description;
@@ -13,12 +22,9 @@ public class Proposal {
     private boolean approved = false;
     private ProposalStatus status = ProposalStatus.PENDING;
 
-    public Proposal() {
-        this.id = UUID.randomUUID().toString();
-    }
+    protected Proposal() {}
 
     public Proposal(String title, String description, String author, String email) {
-        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
         this.author = author;
@@ -29,40 +35,20 @@ public class Proposal {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public boolean isApproved() {
@@ -77,8 +63,13 @@ public class Proposal {
         return status;
     }
 
-    public void setStatus(ProposalStatus status) {
-        this.status = status;
+    public void approve() {
+        this.approved = true;
+        this.changeStatusToDecided();
+    }
+
+    private void changeStatusToDecided() {
+        this.status = ProposalStatus.DECIDED;
     }
 
     @Override
