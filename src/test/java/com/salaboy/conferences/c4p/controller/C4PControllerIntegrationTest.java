@@ -6,18 +6,20 @@ import com.salaboy.conferences.c4p.TestConfiguration;
 import com.salaboy.conferences.c4p.model.Proposal;
 import com.salaboy.conferences.c4p.model.ProposalDecision;
 import com.salaboy.conferences.c4p.model.ProposalStatus;
+import io.zeebe.spring.util.ZeebeAutoStartUpLifecycle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
@@ -25,13 +27,13 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@AutoConfigureWebTestClient
-@ContextConfiguration(classes = C4PApplication.class)
-@Import(value = {TestConfiguration.class})
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class C4PControllerIT {
+@SpringBootTest
+@ContextConfiguration(classes = C4PApplication.class)
+@AutoConfigureWebTestClient
+@Import(TestConfiguration.class)
+public class C4PControllerIntegrationTest {
 
 
     @Autowired
@@ -42,6 +44,9 @@ public class C4PControllerIT {
 
     @Autowired
     private ProposalRepository proposalRepository;
+
+    @MockBean
+    private ZeebeAutoStartUpLifecycle zeebeAutoStartUpLifecycle;
 
     @BeforeEach
     public void beforeAll() {
