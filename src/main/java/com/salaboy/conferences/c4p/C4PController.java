@@ -121,7 +121,11 @@ public class C4PController {
 
             var proposal = proposalOptional.get();
 
-            proposal.approve();
+            if(decision.isApproved()) {
+                proposal.approve();
+            }else{
+                proposal.reject();
+            }
 
             proposalRepository.save(proposal);
 

@@ -68,6 +68,11 @@ public class Proposal {
         this.changeStatusToDecided();
     }
 
+    public void reject() {
+        this.approved = false;
+        this.changeStatusToDecided();
+    }
+
     private void changeStatusToDecided() {
         this.status = ProposalStatus.DECIDED;
     }
