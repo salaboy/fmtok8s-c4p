@@ -32,6 +32,7 @@ spec:
         env:
           - name: VERSION
             value: {{ .Chart.Version }}
+{{- if .Values.externalSecretsEnabled }}
           - name: ZEEBE_CLIENT_BROKER_CONTACTPOINT
             valueFrom:
               secretKeyRef:
@@ -47,6 +48,7 @@ spec:
               secretKeyRef:
                 key: zeebe-client-secret
                 name: camunda-cloud-secret
+{{- end }}
           - name: ZEEBE_AUTHORIZATION_SERVER_URL
             value: https://login.cloud.camunda.io/oauth/token
           - name: ZEEBE_CLIENT_SECURITY_PLAINTEXT
@@ -77,8 +79,8 @@ spec:
         resources:
 {{ toYaml .Values.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
-{{- end }}
       imagePullSecrets:
 {{- range $pval := .Values.jx.imagePullSecrets }}
       - name: {{ quote $pval }}
+{{- end }}
 {{- end }}

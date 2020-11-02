@@ -51,6 +51,19 @@
     </bpmn:receiveTask>
     <bpmn:sequenceFlow id="SequenceFlow_0vp94d3" sourceRef="StartEvent_1" targetRef="ReceiveTask_1vr126v" />
     <bpmn:sequenceFlow id="SequenceFlow_0pwgx33" sourceRef="ReceiveTask_1vr126v" targetRef="ExclusiveGateway_03j900u" />
+    <bpmn:sequenceFlow id="Flow_123nhob" sourceRef="Event_1yllcx2" targetRef="Activity_1ohu8bb" />
+    <bpmn:boundaryEvent id="Event_1yllcx2" cancelActivity="false" attachedToRef="ReceiveTask_1vr126v">
+      <bpmn:outgoing>Flow_123nhob</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_082j6og">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R5/PT15S</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:serviceTask id="Activity_1ohu8bb" name="Notification to Commitee">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="email-to-committee" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_123nhob</bpmn:incoming>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:message id="Message_0ffpl9a" />
   <bpmn:message id="Message_0os211h" name="DecisionMade">
@@ -96,6 +109,10 @@
           <dc:Bounds x="433" y="103" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_123nhob_di" bpmnElement="Flow_123nhob">
+        <di:waypoint x="290" y="179" />
+        <di:waypoint x="290" y="230" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_03j900u_di" bpmnElement="ExclusiveGateway_03j900u" isMarkerVisible="true">
         <dc:Bounds x="364" y="96" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -122,6 +139,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ReceiveTask_1vr126v_di" bpmnElement="ReceiveTask_1vr126v">
         <dc:Bounds x="232" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00ifqfu_di" bpmnElement="Activity_1ohu8bb">
+        <dc:Bounds x="240" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1v7d6ra_di" bpmnElement="Event_1yllcx2">
+        <dc:Bounds x="272" y="143" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

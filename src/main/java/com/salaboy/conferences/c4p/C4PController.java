@@ -114,19 +114,15 @@ public class C4PController {
     public void decide(@PathVariable("id") String id, @RequestBody ProposalDecision decision) {
 
         emitEvent("> Proposal Approved Event ( " + ((decision.isApproved()) ? "Approved" : "Rejected") + ")");
-
         var proposalOptional = proposalRepository.findById(id);
 
         if (proposalOptional.isPresent()) {
-
             var proposal = proposalOptional.get();
-
             if(decision.isApproved()) {
                 proposal.approve();
             }else{
                 proposal.reject();
             }
-
             proposalRepository.save(proposal);
 
             // Notify the workflow that a decision was made
