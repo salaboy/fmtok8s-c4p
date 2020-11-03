@@ -72,6 +72,7 @@ readinessProbe:
   timeoutSeconds: 1
 
 externalSecretsEnabled: false
+externalSecretForZeebe: false
 secretsManager: gcpSecretsManager
 
 # custom ingress annotations on this service
