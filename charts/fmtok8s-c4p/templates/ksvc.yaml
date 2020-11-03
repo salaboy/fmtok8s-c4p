@@ -19,9 +19,9 @@ spec:
         - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: VERSION
-              value: {{ .Chart.Version }}
- {{- if .Values.externalSecretForZeebe }}
+          - name: VERSION
+            value: {{ .Chart.Version }}
+{{- if .Values.externalSecretForZeebe }}
           - name: ZEEBE_CLIENT_BROKER_CONTACTPOINT
             valueFrom:
               secretKeyRef:
