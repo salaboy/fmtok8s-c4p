@@ -36,23 +36,23 @@ spec:
           - name: ZEEBE_CLIENT_BROKER_CONTACTPOINT
             valueFrom:
               secretKeyRef:
-                key: zeebeAddress
+                key: ZEEBE_ADDRESS
                 name: camunda-cloud-secret
           - name: ZEEBE_CLIENT_ID
             valueFrom:
               secretKeyRef:
-                key: zeebeClientId
+                key: ZEEBE_CLIENT_ID
                 name: camunda-cloud-secret
           - name: ZEEBE_CLIENT_SECRET
             valueFrom:
               secretKeyRef:
-                key: zeebeClientSecret
+                key: ZEEBE_CLIENT_SECRET
                 name: camunda-cloud-secret
           - name: ZEEBE_AUTHORIZATION_SERVER_URL
             valueFrom:
               secretKeyRef:
-                key: zeebeAuthServer
-                name: camunda-cloud-secret  
+                key: ZEEBE_AUTHORIZATION_SERVER_URL
+                name: camunda-cloud-secret
 {{- end }}
           - name: ZEEBE_CLIENT_SECURITY_PLAINTEXT
             value: "false"
