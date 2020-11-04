@@ -38,6 +38,10 @@ spec:
                 key: zeebe-client-secret
                 name: camunda-cloud-secret
 {{- end }}
+          - name: ZEEBE_AUTHORIZATION_SERVER_URL
+            value: https://login.cloud.camunda.io/oauth/token
+          - name: ZEEBE_CLIENT_SECURITY_PLAINTEXT
+            value: "false"
 {{- range $pkey, $pval := .Values.env }}
           - name: {{ $pkey }}
             value: {{ quote $pval }}
