@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1asr9b3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.10.0">
+  <bpmn:process id="visualize" name="C4P Visualize" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Proposal Received">
+      <bpmn:outgoing>Flow_01nocox</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0qsoegv" messageRef="Message_0yve831" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_01nocox" sourceRef="StartEvent_1" targetRef="Event_1y9s7jg" />
+    <bpmn:sequenceFlow id="Flow_1hwdzhe" sourceRef="Event_1y9s7jg" targetRef="Event_0sa82wg" />
+    <bpmn:sequenceFlow id="Flow_1oz0w9c" sourceRef="Event_0sa82wg" targetRef="Event_0wn614g" />
+    <bpmn:endEvent id="Event_1j0p44y" name="Proposal Live">
+      <bpmn:incoming>Flow_01ejwly</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_01ejwly" sourceRef="Event_0wn614g" targetRef="Event_1j0p44y" />
+    <bpmn:intermediateCatchEvent id="Event_1y9s7jg" name="Decision Made">
+      <bpmn:incoming>Flow_01nocox</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hwdzhe</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0tosdp3" messageRef="Message_0i0ia14" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Event_0sa82wg" name="Agenda Item Created">
+      <bpmn:incoming>Flow_1hwdzhe</bpmn:incoming>
+      <bpmn:outgoing>Flow_1oz0w9c</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_15k2omz" messageRef="Message_0qzfbi6" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Event_0wn614g" name="Email Sent">
+      <bpmn:incoming>Flow_1oz0w9c</bpmn:incoming>
+      <bpmn:outgoing>Flow_01ejwly</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_07ag3i1" messageRef="Message_0nloqfc" />
+    </bpmn:intermediateCatchEvent>
+  </bpmn:process>
+  <bpmn:message id="Message_0yve831" name="C4P.ProposalReceived" />
+  <bpmn:message id="Message_0i0ia14" name="C4P.ProposalDecisionMade">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=id" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_0qzfbi6" name="Agenda.ItemCreated">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=id" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_0nloqfc" name="Email.Sent">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=id" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="visualize">
+      <bpmndi:BPMNEdge id="Flow_01nocox_di" bpmnElement="Flow_01nocox">
+        <di:waypoint x="215" y="97" />
+        <di:waypoint x="272" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hwdzhe_di" bpmnElement="Flow_1hwdzhe">
+        <di:waypoint x="308" y="97" />
+        <di:waypoint x="372" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1oz0w9c_di" bpmnElement="Flow_1oz0w9c">
+        <di:waypoint x="408" y="97" />
+        <di:waypoint x="472" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01ejwly_di" bpmnElement="Flow_01ejwly">
+        <di:waypoint x="508" y="97" />
+        <di:waypoint x="572" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0dx7pux_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="175" y="122" width="46" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1j0p44y_di" bpmnElement="Event_1j0p44y">
+        <dc:Bounds x="572" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="557" y="122" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rfltai_di" bpmnElement="Event_1y9s7jg">
+        <dc:Bounds x="272" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="254" y="122" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_140a0qy_di" bpmnElement="Event_0sa82wg">
+        <dc:Bounds x="372" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="359" y="122" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1q7dbm2_di" bpmnElement="Event_0wn614g">
+        <dc:Bounds x="472" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="463" y="122" width="54" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

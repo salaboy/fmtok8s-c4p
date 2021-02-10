@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_13s9zcd" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.10.0">
+  <bpmn:process id="visualize" name="C4P Visualize" isExecutable="true">
+    <bpmn:startEvent id="Event_110ssn1" name="Proposal Received">
+      <bpmn:outgoing>Flow_129zfud</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1rws1m3" messageRef="Message_0g06dxe" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0zf5zko" name="Proposal Live">
+      <bpmn:incoming>Flow_1ryhwy1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:intermediateCatchEvent id="Event_054qcyw" name="Decision Made">
+      <bpmn:incoming>Flow_129zfud</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jd3j26</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1404eql" messageRef="Message_0lvhen3" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Event_1itcr64" name="Agenda Item Created">
+      <bpmn:incoming>Flow_0tq7pg8</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bn8lgo</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0c84o27" messageRef="Message_1op6gid" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Event_0tfgqpi" name="Accepted Email Sent">
+      <bpmn:incoming>Flow_1bn8lgo</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ryhwy1</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0siius1" messageRef="Message_0p39l3x" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_129zfud" sourceRef="Event_110ssn1" targetRef="Event_054qcyw" />
+    <bpmn:sequenceFlow id="Flow_1bn8lgo" sourceRef="Event_1itcr64" targetRef="Event_0tfgqpi" />
+    <bpmn:sequenceFlow id="Flow_1ryhwy1" sourceRef="Event_0tfgqpi" targetRef="Event_0zf5zko" />
+    <bpmn:exclusiveGateway id="Gateway_1spvc9n" name="Accepted?">
+      <bpmn:incoming>Flow_0jd3j26</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tq7pg8</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1hda8uo</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0jd3j26" sourceRef="Event_054qcyw" targetRef="Gateway_1spvc9n" />
+    <bpmn:sequenceFlow id="Flow_0tq7pg8" name="Yes" sourceRef="Gateway_1spvc9n" targetRef="Event_1itcr64">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=approved = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1hda8uo" name="No" sourceRef="Gateway_1spvc9n" targetRef="Event_0kc65lq">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=approved = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:intermediateCatchEvent id="Event_0kc65lq" name="Rejection Email Sent">
+      <bpmn:incoming>Flow_1hda8uo</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tud7gk</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0pavt5j" messageRef="Message_0p39l3x" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="Event_03m7q6g" name="Proposal Rejected">
+      <bpmn:incoming>Flow_0tud7gk</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0tud7gk" sourceRef="Event_0kc65lq" targetRef="Event_03m7q6g" />
+  </bpmn:process>
+  <bpmn:message id="Message_0g06dxe" name="C4P.ProposalReceived" />
+  <bpmn:message id="Message_0lvhen3" name="C4P.ProposalDecisionMade">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=id" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_1op6gid" name="Agenda.ItemCreated">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=id" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_0p39l3x" name="Email.Sent">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=id" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_0pyzjqt" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="visualize">
+      <bpmndi:BPMNEdge id="Flow_129zfud_di" bpmnElement="Flow_129zfud">
+        <di:waypoint x="198" y="160" />
+        <di:waypoint x="255" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ryhwy1_di" bpmnElement="Flow_1ryhwy1">
+        <di:waypoint x="508" y="250" />
+        <di:waypoint x="582" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bn8lgo_di" bpmnElement="Flow_1bn8lgo">
+        <di:waypoint x="398" y="250" />
+        <di:waypoint x="472" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="506" y="232" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jd3j26_di" bpmnElement="Flow_0jd3j26">
+        <di:waypoint x="291" y="160" />
+        <di:waypoint x="355" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tq7pg8_di" bpmnElement="Flow_0tq7pg8">
+        <di:waypoint x="380" y="185" />
+        <di:waypoint x="380" y="232" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="386" y="206" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hda8uo_di" bpmnElement="Flow_1hda8uo">
+        <di:waypoint x="405" y="160" />
+        <di:waypoint x="472" y="160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="431" y="142" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tud7gk_di" bpmnElement="Flow_0tud7gk">
+        <di:waypoint x="508" y="160" />
+        <di:waypoint x="582" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_110ssn1_di" bpmnElement="Event_110ssn1">
+        <dc:Bounds x="162" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="158" y="185" width="46" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_054qcyw_di" bpmnElement="Event_054qcyw">
+        <dc:Bounds x="255" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="237" y="185" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1spvc9n_di" bpmnElement="Gateway_1spvc9n" isMarkerVisible="true">
+        <dc:Bounds x="355" y="135" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="354" y="105" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0g1nli4_di" bpmnElement="Event_0kc65lq">
+        <dc:Bounds x="472" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="452" y="185" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_03m7q6g_di" bpmnElement="Event_03m7q6g">
+        <dc:Bounds x="582" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="555" y="185" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0zf5zko_di" bpmnElement="Event_0zf5zko">
+        <dc:Bounds x="582" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="567" y="275" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0tfgqpi_di" bpmnElement="Event_0tfgqpi">
+        <dc:Bounds x="472" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="452" y="275" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1itcr64_di" bpmnElement="Event_1itcr64">
+        <dc:Bounds x="362" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="349" y="275" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
