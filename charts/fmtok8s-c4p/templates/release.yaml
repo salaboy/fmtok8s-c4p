@@ -1,0 +1,38 @@
+{{- if .Capabilities.APIVersions.Has "jenkins.io/v1/Release" }}
+apiVersion: jenkins.io/v1
+kind: Release
+metadata:
+  creationTimestamp: "2021-03-05T19:44:59Z"
+  deletionTimestamp: null
+  name: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+spec:
+  commits:
+  - author:
+      email: jenkins-x@googlegroups.com
+      name: salaboy
+    branch: master
+    committer:
+      email: jenkins-x@googlegroups.com
+      name: salaboy
+    message: |
+      release 0.0.67
+    sha: 508f6e75edfe52e8063ddd8bce760dd47af838bc
+  - author:
+      email: salaboy@gmail.com
+      name: salaboy
+    branch: master
+    committer:
+      email: salaboy@gmail.com
+      name: salaboy
+    message: |
+      emitting cloud events when proposal arrives and when decision is made
+    sha: db6613d99170c55817f7dba4fa7195b860c6bdfb
+  gitHttpUrl: https://github.com/salaboy/fmtok8s-c4p
+  gitOwner: salaboy
+  gitRepository: fmtok8s-c4p
+  name: '{{ .Chart.Name }}'
+  releaseNotesURL: https://github.com/salaboy/fmtok8s-c4p/releases/tag/v0.0.68
+  version: v0.0.68
+status: {}
+ 
+{{- end }}
