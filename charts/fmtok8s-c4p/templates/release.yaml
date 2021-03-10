@@ -1,0 +1,58 @@
+{{- if .Capabilities.APIVersions.Has "jenkins.io/v1/Release" }}
+apiVersion: jenkins.io/v1
+kind: Release
+metadata:
+  creationTimestamp: "2021-03-10T10:56:34Z"
+  deletionTimestamp: null
+  name: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+spec:
+  commits:
+  - author:
+      email: jenkins-x@googlegroups.com
+      name: jenkins-x-bot
+    branch: master
+    committer:
+      email: jenkins-x@googlegroups.com
+      name: jenkins-x-bot
+    message: |
+      chore: release 0.0.68
+    sha: ce401b5f8d56e1a18463d3f220327d4f9be17ee7
+  - author:
+      email: jenkins-x@googlegroups.com
+      name: jenkins-x-bot
+    branch: master
+    committer:
+      email: jenkins-x@googlegroups.com
+      name: jenkins-x-bot
+    message: |
+      chore: add variables
+    sha: a323abb8e2a44703bf1fb2c1ecf19441cb58f855
+  - author:
+      email: salaboy@gmail.com
+      name: salaboy
+    branch: master
+    committer:
+      email: salaboy@gmail.com
+      name: salaboy
+    message: |
+      upgrade pipeline, cm and secret
+    sha: 2c0f1f5a4740174011d4251f491a631c9eca70ab
+  - author:
+      email: salaboy@gmail.com
+      name: salaboy
+    branch: master
+    committer:
+      email: salaboy@gmail.com
+      name: salaboy
+    message: |
+      fix(plugins): use a better version of maven plugins
+    sha: ca66a8e13e882835cc46d554931e9fe3738a55fc
+  gitHttpUrl: https://github.com/salaboy/fmtok8s-c4p
+  gitOwner: salaboy
+  gitRepository: fmtok8s-c4p
+  name: '{{ .Chart.Name }}'
+  releaseNotesURL: https://github.com/salaboy/fmtok8s-c4p/releases/tag/v0.0.69
+  version: v0.0.69
+status: {}
+ 
+{{- end }}
