@@ -32,6 +32,20 @@ spec:
         env:
           - name: VERSION
             value: {{ .Chart.Version }}
+          - name: POD_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: POD_ID
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: VERSION
+            value: {{ .Chart.Version }}
 {{- if .Values.clientName }}
           - name: ZEEBE_CLIENT_BROKER_CONTACTPOINT
             valueFrom:
